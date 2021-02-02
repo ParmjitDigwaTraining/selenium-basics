@@ -6,7 +6,7 @@ driver = object
 action = object
 
 # tests are run in the order they are defined, so this test will run first
-def test_before():
+def setup_module():
     global driver
     global action
     driver = webdriver.Chrome('c:\\pf\\bin\\chromedriver.exe')  
@@ -15,6 +15,14 @@ def test_before():
     driver.get('file://C:/work/git/nodejs-sky/selenium-basics/practice_page.html')
     # create action chain object 
     action = ActionChains(driver) 
+
+    assert True
+
+# tests are run in the order they are defined, so this test will run last
+def teardown_module():
+    time.sleep(5)
+
+    driver.close()
 
     assert True
 
@@ -59,10 +67,3 @@ def test_does_date_feild_show_correct_value():
     assert expected_result == result
 
 
-# tests are run in the order they are defined, so this test will run last
-def test_after():
-    time.sleep(5)
-
-    driver.close()
-
-    assert True
